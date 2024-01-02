@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #rotatingDiv {
+      width: 250px;
+      height: 100px;
+      background-position: center;
+      background-size: cover;
+      margin: 50px;
+      animation: animka 4s infinite linear;
+    }
+    @keyframes animka{
+    0% {
+        opacity: 100%;
+        transform: rotateZ(0deg);
+    }
+
+    100%{
+        transform: rotateZ(360deg);
+        opacity: 100%;
+    }
+}
+  </style>
+</head>
+<body>
+  <input type="range" id="rotationSlider" min="1" max="90" value="1" oninput="rotateDiv(this.value)">
+  <div id="rotatingDiv">
+    <form>
+    <label for="numerZwykly">Numer zwykły:</label>
+    <input type="range" id="numerZwykly" name="numerZwykly" min="100000000" max="999999999" step="1" value="100000000" oninput="aktualizujNumery()">
+    
+    <br>
+
+    <output for="numerZwykly" id="wybranyNumer">(+1) 000 000 000</output>
+  </form>
+  </div>
+
+  <script>
+    function rotateDiv(degrees) {
+      const rotatingDiv = document.getElementById('rotatingDiv');
+      rotatingDiv.style.transform = `rotate(${degrees}deg)`;
+    }
+
+    // Inicjalizacja wartości suwaka
+    rotateDiv(1);
+  </script>
+    <script>
+        function aktualizujNumery() {
+          const suwakZwykly = document.getElementById('numerZwykly');
+          const wybranyNumer = document.getElementById('wybranyNumer');
+    
+          const formattedNumerZwykly = suwakZwykly.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    
+          wybranyNumer.textContent = `${formattedNumerZwykly}`;
+        }
+    
+        // Zaktualizuj numery na starcie
+        aktualizujNumery();
+      </script>
+</body>
+</html>
